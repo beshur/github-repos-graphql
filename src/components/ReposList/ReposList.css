@@ -1,0 +1,22 @@
+.ReposList {
+  min-width: 400px;
+  margin: auto;
+}
+
+.ReposList table {
+  width: 100%;
+}
+.ReposList table th:first-child {
+  min-width: 100px;
+}
+
+.ReposList table th,
+.ReposList table td {
+  font-size: 18px;
+  text-align: left;
+}
+.ReposList table th:nth-child(n+2),
+.ReposList table td:nth-child(n+2) {
+  text-align: right;;
+  width: 100px;
+}
