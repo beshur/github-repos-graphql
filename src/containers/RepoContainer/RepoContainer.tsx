@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery, gql } from '@apollo/client';
+
 import LoadingPlaceholder from '../../components/LoadingPlaceholder/LoadingPlaceholder';
 import ReposList from '../../components/ReposList/ReposList';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import SearchEngine from '../../components/SearchEngine/SearchEngine';
+
+import REPO_QUERY from '../../gql/repoSchema';
 
 const RepoContainer = (props: any) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchState, setSearchState] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-
-  const onSearchChange = (query: string) => {
-    console.log('onSearchChange', query);
-    setSearchQuery(query);
-  }
+  const [searchQuery, setSearchQuery] = useState('react');
 
   const style = {
     border: '1px solid #eee',
@@ -24,17 +20,21 @@ const RepoContainer = (props: any) => {
     margin: '0 0 20px',
   };
 
+  const { loading, error, data } = useQuery(REPO_QUERY, {
+    variables: {
+      queryString: searchQuery
+    }
+  });
+
   return (
     <div style={style}>
       <div style={blockStyle}>
-        <SearchBar change={onSearchChange} />
+        <SearchBar query={searchQuery} change={setSearchQuery} />
       </div>
-      <SearchEngine
-        query={searchQuery}
-        onSearchStateChange={setSearchState}
-        onSearchResults={( res: any ) => {console.log('results', res); setSearchResults(res); }} />
       <div style={blockStyle}>
-        { searchState ? <LoadingPlaceholder /> : <ReposList repos={searchResults} /> }
+        { loading ? <LoadingPlaceholder /> : null }
+        { error ? <div>{error}</div> : null }
+        { (data && data.search && data.search.repositoryCount > 0) ? <ReposList repos={data.search} /> : null }
       </div>
     </div>
   );

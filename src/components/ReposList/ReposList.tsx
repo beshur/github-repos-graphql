@@ -2,7 +2,6 @@ import React from 'react';
 import RepoItem from '../RepoItem/RepoItem';
 import './ReposList.css';
 
-
 const ReposList = (props: any) => {
   return (
     <div className="ReposList">
@@ -15,7 +14,11 @@ const ReposList = (props: any) => {
           </tr>
         </thead>
         <tbody>
-          { props.repos.map((repo: any) => <RepoItem key={repo.name} {...repo} />) }
+          {
+            props.repos.edges.map((repo: any, index: number) =>
+              <RepoItem key={repo.node.name + index} {...repo.node} />
+            )
+          }
         </tbody>
       </table>
     </div>

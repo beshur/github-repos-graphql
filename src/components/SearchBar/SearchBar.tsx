@@ -10,6 +10,7 @@ const SearchBar = (props: any) => {
     <div>
       <input
         type="text"
+        value={props.query}
         onChange={(e) => props.change(e.target.value)}
         style={inputStyle}
         placeholder="Search repositories" />
