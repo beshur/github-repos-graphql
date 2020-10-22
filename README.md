@@ -1,3 +1,11 @@
+# Github Repos GraphQL Search with React
+
+This is a basic example of a GraphQL Github search, using React and Typescript.
+
+The app uses React and expect a [Github Auth Token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) in an `.env` file (see [`.env.example`](https://github.com/beshur/github-repos-graphql/blob/master/.env.example)).
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
